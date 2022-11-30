@@ -9,10 +9,10 @@ resource "random_id" "vault_key_name" {
 
 # todo
 # vault keys são globais
-#
+# tamanho máximo do nome de vault 24 chars
 
 resource "azurerm_key_vault" "lab" {
-  name                       = "lab-key-vault-${random_id.vault_key_name.hex}"
+  name                       = "vault-lab-${random_id.vault_key_name.hex}"
   location                   = azurerm_resource_group.main.location
   resource_group_name        = azurerm_resource_group.main.name
   tenant_id                  = data.azurerm_client_config.current.tenant_id

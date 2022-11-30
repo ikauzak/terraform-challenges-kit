@@ -1,6 +1,6 @@
 variable "db_name" {
   type    = string
-  default = "lab-mssql-server"
+  default = "lab-mssql-server-masuda"
 }
 
 # todo
@@ -17,11 +17,18 @@ resource "azurerm_mssql_server" "lab_database" {
   public_network_access_enabled = true
 }
 
+# regra para possibilitar a chamadas de origem azure
+resource "azurerm_mssql_firewall_rule" "internet" {
+  name             = "internet-all-ingress"
+  server_id        = azurerm_mssql_server.lab_database.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
+
 resource "azurerm_mssql_database" "lab_database" {
   name           = "lab-db"
   server_id      = azurerm_mssql_server.lab_database.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
-  license_type   = "LicenseIncluded"
   max_size_gb    = 5
   read_scale     = false
   sku_name       = "S0"
