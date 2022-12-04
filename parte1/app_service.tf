@@ -1,7 +1,4 @@
-locals {
-  db_connection_string = "Server=${azurerm_mssql_server.lab_database.fully_qualified_domain_name};Database=${azurerm_mssql_database.lab_database.name};User ID=${azurerm_mssql_server.lab_database.administrator_login};Password=${random_password.db_pass.result};"
-}
-
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/service_plan
 resource "azurerm_service_plan" "lab" {
   name                = "lab-appservice-plan"
   location            = azurerm_resource_group.main.location
@@ -10,6 +7,7 @@ resource "azurerm_service_plan" "lab" {
   sku_name            = "S1"
 }
 
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app
 resource "azurerm_linux_web_app" "lab" {
   name                = "lab-appservice"
   location            = azurerm_resource_group.main.location
@@ -25,17 +23,16 @@ resource "azurerm_linux_web_app" "lab" {
       docker_image_tag = "v1.0.1"
     }
   }
+
   tags = {
     terraform = "true"
   }
 
+  # Somente necessário ao provisionar o banco
   connection_string {
+    # Connection string não aceita "-", por isso é necessário o replace por "_"
     name  = replace(azurerm_mssql_server.lab_database.name, "-", "_")
     type  = "SQLServer"
-    value = azurerm_mssql_server.lab_database.fully_qualified_domain_name
+    value = azurerm_mssql_server.lab_mssql_server.fully_qualified_domain_name
   }
-}
-
-output "appservice_address" {
-  value = "App Service URL: https://${azurerm_linux_web_app.lab.default_hostname}"
 }

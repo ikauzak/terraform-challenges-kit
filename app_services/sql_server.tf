@@ -1,6 +1,6 @@
 variable "db_name" {
   type    = string
-  default = "lab-mssql-server-masuda"
+  default = "lab-mssql-server-masuda123"
 }
 
 # todo
