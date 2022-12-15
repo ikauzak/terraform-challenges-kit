@@ -9,7 +9,6 @@ module "app1" {
 
   db_white_list = {
     internet = "0.0.0.0"
-    masuda   = "179.111.108.251"
   }
 
   vault_id = module.vault.id
@@ -26,7 +25,6 @@ module "app2" {
 
   db_white_list = {
     internet = "0.0.0.0"
-    masuda   = "179.111.108.251"
   }
 
   vault_id = module.vault.id
@@ -43,7 +41,6 @@ module "app3" {
 
   db_white_list = {
     internet = "0.0.0.0"
-    masuda   = "179.111.108.251"
   }
 
   service_extra_tags = {

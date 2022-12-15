@@ -48,7 +48,6 @@ variable "db_white_list" {
   type = map(string)
   default = {
     internet-all-ingress = "0.0.0.0"
-    masuda               = "179.111.108.251"
     fulano               = "10.0.0.25"
     ciclano              = "10.0.0.30"
   }
