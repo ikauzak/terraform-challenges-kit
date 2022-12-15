@@ -8,12 +8,12 @@ terraform {
   }
 
   #  https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
-  backend "azurerm" {
-    resource_group_name  = "masudalabs-blob-storage"
-    storage_account_name = "masudalabs"
-    container_name       = "masudalabs"
-    key                  = "storage_container.terraform.tfstate"
-  }
+  #  backend "azurerm" {
+  #    resource_group_name  = "masudalabs-blob-storage"
+  #    storage_account_name = "masudalabs"
+  #    container_name       = "masudalabs"
+  #    key                  = "storage_container.terraform.tfstate"
+  #  }
 
   # Verão requisitada pelo terraform
   required_version = ">= 1.1.0"
